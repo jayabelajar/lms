@@ -35,7 +35,7 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Mata Kuliah Terbaru</p>
-                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Pembaruan terbaru</h3>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Pembaruan Terbaru</h3>
                     </div>
                     <x-button href="{{ route('admin.courses.index') }}" size="sm" variant="secondary" icon="arrow-right">
                         Lihat Semua
