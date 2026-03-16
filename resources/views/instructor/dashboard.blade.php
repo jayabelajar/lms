@@ -1,40 +1,38 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                {{ __('Dasbor Dosen') }}
-            </h2>
-            <x-button href="{{ route('instructor.courses.index') }}" icon="book" class="w-full sm:w-auto">
-                Mata Kuliah
-            </x-button>
-        </div>
-    </x-slot>
+    
 
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
         <x-card>
-            <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400">Total Mata Kuliah</p>
+            <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400">Total Courses</p>
             <h3 class="text-3xl font-bold text-gray-900 dark:text-white mt-2">{{ $totalCourses }}</h3>
         </x-card>
         <x-card>
-            <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400">Total Mahasiswa</p>
+            <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400">Total Students</p>
             <h3 class="text-3xl font-bold text-gray-900 dark:text-white mt-2">{{ $totalStudents }}</h3>
         </x-card>
         <x-card>
-            <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400">Menunggu Penilaian</p>
+            <p class="text-[11px] font-bold uppercase tracking-widest text-gray-400">Menunggu Pegradesan</p>
             <h3 class="text-3xl font-bold text-gray-900 dark:text-white mt-2">{{ $pendingGrading }}</h3>
         </x-card>
     </div>
 
     <x-card>
         <x-slot name="header">
-            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Mata Kuliah</p>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Daftar Mata Kuliah</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Daftar Courses</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang daftar courses.</p>
                 </div>
-                <x-button href="{{ route('instructor.courses.index') }}" size="sm" variant="secondary" icon="arrow-right">
-                    Lihat Semua
+                <div class="flex items-center gap-3">
+                    <x-button href="{{ route('instructor.courses.index') }}" size="sm" variant="secondary" icon="arrow-right">
+                    View All
                 </x-button>
+            
+                    <x-button href="{{ route('instructor.courses.index') }}" icon="book" class="w-full sm:w-auto">
+                Courses
+            </x-button>
+                
+                </div>
             </div>
         </x-slot>
 
@@ -42,8 +40,8 @@
             <table class="min-w-full text-sm">
                 <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                     <tr>
-                        <th class="px-4 py-3">Mata Kuliah</th>
-                        <th class="px-4 py-3">Mahasiswa</th>
+                        <th class="px-4 py-3">Courses</th>
+                        <th class="px-4 py-3">Students</th>
                         <th class="px-4 py-3">Status</th>
                     </tr>
                 </thead>
@@ -61,7 +59,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="px-4 py-6 text-center text-gray-500" colspan="3">Belum ada mata kuliah.</td>
+                            <td class="px-4 py-6 text-center text-gray-500" colspan="3">No courses.</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -44,11 +44,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:admin')
         ->name('admin.dashboard');
 
-    Route::get('/instructor/dashboard', [InstructorDashboardController::class, 'index'])
+    Route::get('/dosen/dashboard', [InstructorDashboardController::class, 'index'])
         ->middleware('role:instructor')
         ->name('instructor.dashboard');
 
-    Route::get('/student/dashboard', [StudentDashboardControllerV2::class, 'index'])
+    Route::get('/mahasiswa/dashboard', [StudentDashboardControllerV2::class, 'index'])
         ->middleware('role:student')
         ->name('student.dashboard');
 });
@@ -67,16 +67,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('users', AdminUserController::class)->except(['show']);
         Route::patch('users/{user}/toggle-suspend', [AdminUserController::class, 'toggleSuspend'])->name('users.toggle-suspend');
 
-        Route::get('enrollments', [AdminEnrollmentController::class, 'index'])->name('enrollments.index');
-        Route::patch('enrollments/{enrollment}', [AdminEnrollmentController::class, 'update'])->name('enrollments.update');
-        Route::delete('enrollments/{enrollment}', [AdminEnrollmentController::class, 'destroy'])->name('enrollments.destroy');
 
         Route::get('settings', [AdminSettingsController::class, 'edit'])->name('settings.edit');
         Route::post('settings', [AdminSettingsController::class, 'update'])->name('settings.update');
     });
 
-    Route::prefix('instructor')->name('instructor.')->middleware('role:instructor')->group(function () {
-        Route::resource('courses', InstructorCourseController::class)->only(['index', 'show', 'edit', 'update']);
+    Route::prefix('dosen')->name('instructor.')->middleware('role:instructor')->group(function () {
+        Route::resource('courses', InstructorCourseController::class)->only(['index', 'show']);
 
         Route::get('materials', [InstructorMaterialOverviewController::class, 'index'])->name('materials.overview');
         Route::get('assignments', [InstructorAssignmentOverviewController::class, 'index'])->name('assignments.overview');
@@ -129,7 +126,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('answers/{answer}/grade', [InstructorQuizAttemptController::class, 'grade'])->name('quiz-answers.grade');
     });
 
-    Route::prefix('student')->name('student.')->middleware('role:student')->group(function () {
+    Route::prefix('mahasiswa')->name('student.')->middleware('role:student')->group(function () {
         Route::get('dashboard', [StudentDashboardControllerV2::class, 'index'])->name('dashboard');
         Route::get('my-courses', [StudentCourseController::class, 'index'])->name('my-courses');
         Route::get('my-courses/{course}', [StudentCourseController::class, 'show'])->name('my-courses.show');

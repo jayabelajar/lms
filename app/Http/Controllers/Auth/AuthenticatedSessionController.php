@@ -16,7 +16,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('auth.login', ['role' => 'student']);
+    }
+
+    public function createAdmin(): View
+    {
+        return view('auth.login', ['role' => 'admin']);
+    }
+
+    public function createInstructor(): View
+    {
+        return view('auth.login', ['role' => 'instructor']);
     }
 
     /**
@@ -25,6 +35,19 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
+
+        $user = Auth::user();
+        $expectedRole = $request->input('expected_role');
+
+        if ($expectedRole && !$user->hasRole($expectedRole)) {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return back()->withErrors([
+                'email' => 'You do not have the required role to access this portal.',
+            ])->onlyInput('email');
+        }
 
         $request->session()->regenerate();
 

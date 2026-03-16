@@ -45,7 +45,14 @@ class MaterialController extends Controller
             'sort_order' => $data['sort_order'] ?? 0,
         ]);
 
-        return redirect()->route('instructor.materials.overview')->with('status', 'Material added.');
+        if ($request->input('save_action') === 'save_and_add') {
+            return redirect()->route('instructor.materials.overview')
+                ->with('status', 'Material added successfully. You can add another one.')
+                ->with('open_drawer', true)
+                ->with('selected_course_id', $course->id);
+        }
+
+        return redirect()->route('instructor.materials.overview')->with('status', 'Material added successfully.');
     }
     public function store(Request $request, Course $course): RedirectResponse
     {

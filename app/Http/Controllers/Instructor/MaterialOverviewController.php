@@ -15,14 +15,24 @@ class MaterialOverviewController extends Controller
             ->with('sections')
             ->get();
 
-        $materials = CourseMaterial::with(['course', 'section'])
+        $query = CourseMaterial::with(['course', 'section'])
             ->whereHas('course', function ($q) {
                 $q->where('instructor_id', Auth::id());
-            })
-            ->orderBy('course_id')
+            });
+
+        if (request('q')) {
+            $query->where('title', 'like', '%' . request('q') . '%');
+        }
+
+        if (request('course')) {
+            $query->where('course_id', request('course'));
+        }
+
+        $materials = $query->orderBy('course_id')
             ->orderBy('course_section_id')
             ->orderBy('sort_order')
-            ->paginate(15);
+            ->paginate(15)
+            ->withQueryString();
 
         return view('instructor.materials.overview', compact('materials', 'courses'));
     }

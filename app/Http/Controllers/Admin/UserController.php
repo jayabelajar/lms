@@ -57,7 +57,9 @@ class UserController extends Controller
 
         $users = $query->paginate(10)->withQueryString();
 
-        return view('admin.users.index', compact('users'));
+        $roles = \Spatie\Permission\Models\Role::whereIn('name', ['admin', 'instructor', 'student'])->get();
+
+        return view('admin.users.index', compact('users', 'roles'));
     }
 
     public function create(): View

@@ -1,18 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                    {{ $quiz->title }}
-                </h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Mata Kuliah: {{ $quiz->course?->title ?? '-' }}</p>
-            </div>
-            <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <x-button href="{{ route('student.quizzes.index') }}" variant="secondary" icon="arrow-left" class="w-full sm:w-auto">
-                    Kembali
-                </x-button>
-            </div>
-        </div>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+            {{ __('Jawab pertanyaan') }}
+        </h2>
     </x-slot>
 
     @if ($attempt)
@@ -25,9 +15,12 @@
     <x-card>
         <x-slot name="header">
             <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Kuis</p>
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">Jawab pertanyaan</h3>
-            </div>
+            
+                    <x-button href="{{ route('student.quizzes.index') }}" variant="secondary" icon="arrow-left" class="w-full sm:w-auto">
+                    Back
+                </x-button>
+                </div>
         </x-slot>
 
         <form method="POST" action="{{ route('student.quizzes.submit', $quiz) }}" class="space-y-6">
@@ -60,7 +53,7 @@
             @endforeach
 
             @if (! $attempt)
-                <x-button type="submit" icon="send" class="w-full sm:w-auto">Kirim Kuis</x-button>
+                <x-button type="submit" icon="send" class="w-full sm:w-auto">Submit Quizzes</x-button>
             @endif
         </form>
     </x-card>

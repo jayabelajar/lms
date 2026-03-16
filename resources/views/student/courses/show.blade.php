@@ -1,27 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                    {{ $course->title }}
-                </h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Dosen: {{ $course->instructor?->name ?? '-' }}</p>
-            </div>
-            <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <x-button href="{{ route('student.assignments.index') }}" variant="secondary" icon="list-check" class="w-full sm:w-auto">
-                    Tugas
-                </x-button>
-                <x-button href="{{ route('student.quizzes.index') }}" variant="secondary" icon="help" class="w-full sm:w-auto">
-                    Kuis
-                </x-button>
-                <x-button href="{{ route('student.progress.index') }}" variant="secondary" icon="chart-bar" class="w-full sm:w-auto">
-                    Progres
-                </x-button>
-                <x-button href="{{ route('student.my-courses') }}" icon="arrow-left" class="w-full sm:w-auto">
-                    Kembali
-                </x-button>
-            </div>
-        </div>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+            {{ __('Courses details') }}
+        </h2>
     </x-slot>
 
     @if (session('status'))
@@ -33,19 +14,22 @@
     <x-card>
         <x-slot name="header">
             <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Ringkasan</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Mata Kuliah details</h3>
-            </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Courses details</h3>
+            
+                    <x-button href="{{ route('student.assignments.index') }}" variant="secondary" icon="list-check" class="w-full sm:w-auto">
+                    Assignments
+                </x-button>
+                </div>
         </x-slot>
         <div class="space-y-3">
             <div class="flex flex-wrap gap-2">
                 <x-badge variant="primary" size="sm">{{ ucfirst($course->status) }}</x-badge>
-                <x-badge variant="gray" size="sm">{{ $course->materials()->count() }} Materi</x-badge>
-                <x-badge variant="gray" size="sm">{{ $course->assignments()->count() }} Tugas</x-badge>
-                <x-badge variant="gray" size="sm">{{ $course->quizzes()->count() }} Kuis</x-badge>
+                <x-badge variant="gray" size="sm">{{ $course->materials()->count() }} Materials</x-badge>
+                <x-badge variant="gray" size="sm">{{ $course->assignments()->count() }} Assignments</x-badge>
+                <x-badge variant="gray" size="sm">{{ $course->quizzes()->count() }} Quizzes</x-badge>
             </div>
             <p class="text-sm text-gray-600 dark:text-gray-300">
-                {{ $course->description ?: 'Belum ada deskripsi.' }}
+                {{ $course->description ?: 'No description.' }}
             </p>
         </div>
     </x-card>
@@ -56,9 +40,14 @@
 
     <x-card>
         <x-slot name="header">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Mata Kuliah Content</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Materi and sections</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Materials and sections</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang materials and sections.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    
+                </div>
             </div>
         </x-slot>
 
@@ -87,7 +76,7 @@
                                             {{ \Illuminate\Support\Str::limit($material->content ?? '', 200) }}
                                         </p>
                                     @elseif ($material->type === 'file')
-                                        <p class="text-sm text-gray-600 dark:text-gray-300">Berkas material</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">File material</p>
                                     @elseif ($material->type === 'video')
                                         <p class="text-sm text-gray-600 dark:text-gray-300">Video material</p>
                                     @endif
@@ -115,12 +104,12 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="text-sm text-gray-500">Belum ada materi di bagian ini.</div>
+                            <div class="text-sm text-gray-500">No materials in this section.</div>
                         @endforelse
                     </div>
                 </div>
             @empty
-                <p class="text-sm text-gray-500">Belum ada bagian.</p>
+                <p class="text-sm text-gray-500">No section.</p>
             @endforelse
 
             @php
@@ -130,7 +119,7 @@
             @if ($unsectioned->count() > 0)
                 <div class="border border-gray-100 dark:border-gray-800 rounded-2xl p-5">
                     <div class="flex items-center justify-between">
-                        <h4 class="font-semibold text-gray-900 dark:text-white">Other Materi</h4>
+                        <h4 class="font-semibold text-gray-900 dark:text-white">Other Materials</h4>
                         <span class="text-xs text-gray-400">{{ $unsectioned->count() }} materials</span>
                     </div>
 
@@ -151,7 +140,7 @@
                                             {{ \Illuminate\Support\Str::limit($material->content ?? '', 200) }}
                                         </p>
                                     @elseif ($material->type === 'file')
-                                        <p class="text-sm text-gray-600 dark:text-gray-300">Berkas material</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">File material</p>
                                     @elseif ($material->type === 'video')
                                         <p class="text-sm text-gray-600 dark:text-gray-300">Video material</p>
                                     @endif
@@ -188,19 +177,24 @@
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <x-card>
             <x-slot name="header">
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Tugas</p>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Mata Kuliah tasks</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Courses tasks</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang courses tasks.</p>
                 </div>
-            </x-slot>
+                <div class="flex items-center gap-3">
+                    
+                </div>
+            </div>
+        </x-slot>
 
             <div class="overflow-x-auto w-full">
                 <table class="min-w-full text-sm">
                     <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                         <tr>
-                            <th class="px-4 py-3">Judul</th>
+                            <th class="px-4 py-3">Title</th>
                             <th class="px-4 py-3">Due</th>
-                            <th class="px-4 py-3">Aksi</th>
+                            <th class="px-4 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
@@ -216,7 +210,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="px-4 py-6 text-center text-gray-500" colspan="3">Belum ada tugas.</td>
+                                <td class="px-4 py-6 text-center text-gray-500" colspan="3">No assignments.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -226,19 +220,24 @@
 
         <x-card>
             <x-slot name="header">
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Kuis</p>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Kuis list</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Quizzes list</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang quizzes list.</p>
                 </div>
-            </x-slot>
+                <div class="flex items-center gap-3">
+                    
+                </div>
+            </div>
+        </x-slot>
 
             <div class="overflow-x-auto w-full">
                 <table class="min-w-full text-sm">
                     <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                         <tr>
-                            <th class="px-4 py-3">Kuis</th>
+                            <th class="px-4 py-3">Quizzes</th>
                             <th class="px-4 py-3">Status</th>
-                            <th class="px-4 py-3">Aksi</th>
+                            <th class="px-4 py-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
@@ -247,7 +246,7 @@
                                 <td class="px-4 py-3 font-semibold text-gray-900 dark:text-white">{{ $quiz->title }}</td>
                                 <td class="px-4 py-3">
                                     <x-badge size="sm" variant="{{ $quiz->published ? 'success' : 'warning' }}">
-                                        {{ $quiz->published ? 'Terbit' : 'Draf' }}
+                                        {{ $quiz->published ? 'Published' : 'Draft' }}
                                     </x-badge>
                                 </td>
                                 <td class="px-4 py-3">
@@ -258,7 +257,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="px-4 py-6 text-center text-gray-500" colspan="3">Belum ada kuis.</td>
+                                <td class="px-4 py-6 text-center text-gray-500" colspan="3">No quizzes.</td>
                             </tr>
                         @endforelse
                     </tbody>

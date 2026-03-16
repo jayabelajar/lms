@@ -1,14 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                Tugas
-            </h2>
-            <x-button href="{{ route('student.my-courses') }}" variant="secondary" icon="book" class="w-full sm:w-auto">
-                Mata Kuliah
-            </x-button>
-        </div>
-    </x-slot>
 
     @if (session('status'))
         <div class="p-3 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-2xl">
@@ -18,9 +8,16 @@
 
     <x-card>
         <x-slot name="header">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Tugas</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">All tasks</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">All tasks</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang all tasks.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <x-button href="{{ route('student.my-courses') }}" variant="secondary" icon="book" class="w-full sm:w-auto">
+                        Courses
+                    </x-button>
+                </div>
             </div>
         </x-slot>
 
@@ -28,11 +25,11 @@
             <table class="min-w-full text-sm">
                 <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                     <tr>
-                        <th class="px-4 py-3">Tugas</th>
-                        <th class="px-4 py-3">Mata Kuliah</th>
+                        <th class="px-4 py-3">Assignments</th>
+                        <th class="px-4 py-3">Courses</th>
                         <th class="px-4 py-3">Due</th>
                         <th class="px-4 py-3">Status</th>
-                        <th class="px-4 py-3">Aksi</th>
+                        <th class="px-4 py-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
@@ -45,7 +42,7 @@
                             <td class="px-4 py-3">
                                 @if ($submission)
                                     <x-badge size="sm" variant="{{ $submission->graded_at ? 'success' : 'info' }}">
-                                        {{ $submission->graded_at ? 'Dinilai' : 'Kirimted' }}
+                                        {{ $submission->graded_at ? 'Digrades' : 'Submitted' }}
                                     </x-badge>
                                 @else
                                     <x-badge size="sm" variant="warning">Menunggu</x-badge>
@@ -59,7 +56,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="px-4 py-6 text-center text-gray-500" colspan="5">Belum ada tugas.</td>
+                            <td class="px-4 py-6 text-center text-gray-500" colspan="5">No assignments.</td>
                         </tr>
                     @endforelse
                 </tbody>

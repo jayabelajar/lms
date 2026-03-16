@@ -1,31 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                    Tinjau: {{ $quiz->title }}
-                </h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Mata Kuliah: {{ $quiz->course?->title ?? '-' }}</p>
-            </div>
-            <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-                <x-button href="{{ route('student.quizzes.index') }}" variant="secondary" icon="arrow-left" class="w-full sm:w-auto">
-                    Kembali
-                </x-button>
-            </div>
+            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+                {{ __('Hasil Anda') }}
+            </h2>
         </div>
     </x-slot>
 
     <x-card>
         <x-slot name="header">
             <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Skor</p>
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white">Hasil Anda</h3>
-            </div>
+            
+                    <x-button href="{{ route('student.quizzes.index') }}" variant="secondary" icon="arrow-left" class="w-full sm:w-auto">
+                    Back
+                </x-button>
+                </div>
         </x-slot>
 
         <div class="flex flex-wrap gap-2">
             <x-badge size="sm" variant="success">Skor: {{ $attempt->score ?? 0 }}</x-badge>
-            <x-badge size="sm" variant="gray">Kirimted: {{ $attempt->submitted_at?->format('d M Y H:i') }}</x-badge>
+            <x-badge size="sm" variant="gray">Submitted: {{ $attempt->submitted_at?->format('d M Y H:i') }}</x-badge>
         </div>
     </x-card>
 
@@ -33,9 +28,14 @@
 
     <x-card>
         <x-slot name="header">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Answers</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Tinjau pertanyaan</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Tinjau pertanyaan</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang tinjau pertanyaan.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    
+                </div>
             </div>
         </x-slot>
 

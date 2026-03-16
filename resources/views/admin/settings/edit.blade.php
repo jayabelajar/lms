@@ -1,10 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                {{ __('System Pengaturan') }}
-            </h2>
-        </div>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+            {{ __('LMS Configuration') }}
+        </h2>
     </x-slot>
 
     @if (session('status'))
@@ -15,9 +13,14 @@
 
     <x-card>
         <x-slot name="header">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">General</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">LMS Configuration</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">LMS Configuration</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang lms configuration.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    
+                </div>
             </div>
         </x-slot>
 
@@ -41,7 +44,7 @@
             </x-select>
 
             <div class="flex items-center gap-3">
-                <x-button type="submit" icon="device-floppy">Simpan Pengaturan</x-button>
+                <x-button type="submit" icon="device-floppy">Save Settings</x-button>
             </div>
         </form>
     </x-card>

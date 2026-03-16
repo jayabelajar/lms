@@ -11,21 +11,24 @@
     {{-- Fonts & Icons --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.35.0/tabler-icons.min.css" />
 
+    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     {{-- Theme Initializer --}}
     <script>
-        (function() {
+        function initTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             if (savedTheme === 'dark') {
                 document.documentElement.classList.add('dark');
             } else {
                 document.documentElement.classList.remove('dark');
             }
-        })();
+        }
+        initTheme();
+        document.addEventListener('livewire:navigated', initTheme);
     </script>
 
     <style>
@@ -40,6 +43,7 @@
 
     <x-toast />
 
+    @livewireScriptConfig
     @stack('scripts')
 </body>
 </html>

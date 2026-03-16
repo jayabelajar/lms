@@ -1,13 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                Attempts - {{ $quiz->title }}
-            </h2>
-            <x-button href="{{ route('instructor.quizzes.edit', $quiz) }}" variant="secondary" icon="arrow-left" class="w-full sm:w-auto">
-                Kembali
-            </x-button>
-        </div>
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
+            {{ __('Students attempts') }}
+        </h2>
     </x-slot>
 
     @if (session('status'))
@@ -19,19 +14,22 @@
     <x-card>
         <x-slot name="header">
             <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Attempts</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Mahasiswa attempts</h3>
-            </div>
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Students attempts</h3>
+            
+                    <x-button href="{{ route('instructor.quizzes.edit', $quiz) }}" data-drawer="true" variant="secondary" icon="arrow-left" class="w-full sm:w-auto">
+                Back
+            </x-button>
+                </div>
         </x-slot>
 
         <div class="overflow-x-auto w-full">
             <table class="min-w-full text-sm">
                 <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                     <tr>
-                        <th class="px-4 py-3">Mahasiswa</th>
-                        <th class="px-4 py-3">Kirimted</th>
+                        <th class="px-4 py-3">Students</th>
+                        <th class="px-4 py-3">Submitted</th>
                         <th class="px-4 py-3">Skor</th>
-                        <th class="px-4 py-3">Dinilai</th>
+                        <th class="px-4 py-3">Digrades</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">

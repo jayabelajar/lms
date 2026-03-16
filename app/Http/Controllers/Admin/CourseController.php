@@ -13,13 +13,25 @@ use Illuminate\View\View;
 
 class CourseController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         $this->authorize('viewAny', Course::class);
 
-        $courses = Course::with('instructor')->latest()->paginate(10);
+        $query = Course::with('instructor')->latest();
 
-        return view('admin.courses.index', compact('courses'));
+        if ($request->q) {
+            $query->where('title', 'like', '%' . $request->q . '%');
+        }
+
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        $courses = $query->paginate(10)->withQueryString();
+
+        $instructors = \App\Models\User::role('instructor')->get();
+
+        return view('admin.courses.index', compact('courses', 'instructors'));
     }
 
     public function create(): View

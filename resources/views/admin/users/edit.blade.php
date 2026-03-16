@@ -2,19 +2,23 @@
     <x-slot name="header">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                {{ __('Ubah Pengguna') }}
+                {{ __('{{ $user->name }}') }}
             </h2>
-            <x-button href="{{ route('admin.users.index') }}" variant="secondary" icon="arrow-left" class="w-full sm:w-auto">
-                Kembali
-            </x-button>
         </div>
     </x-slot>
 
     <x-card>
         <x-slot name="header">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">User Info</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ $user->name }}</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">{{ $user->name }}</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang {{ $user->name }}.</p>
+                </div>
+                <div class="flex sm:justify-end gap-3 w-full sm:w-auto mt-4 sm:mt-0">
+                    <x-button href="{{ route('admin.users.index') }}" variant="secondary" icon="arrow-left" class="w-full sm:w-auto">
+                        Back
+                    </x-button>
+                </div>
             </div>
         </x-slot>
 
@@ -37,8 +41,8 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <x-input label="NIP (Admin/Dosen)" name="nip" type="text" icon="id" placeholder="NIP" value="{{ old('nip', $user->nip) }}" />
-                <x-input label="NIM (Mahasiswa)" name="nim" type="text" icon="id" placeholder="NIM" value="{{ old('nim', $user->nim) }}" />
+                <x-input label="NIP (Admin/Instructors)" name="nip" type="text" icon="id" placeholder="NIP" value="{{ old('nip', $user->nip) }}" />
+                <x-input label="NIM (Students)" name="nim" type="text" icon="id" placeholder="NIM" value="{{ old('nim', $user->nim) }}" />
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">

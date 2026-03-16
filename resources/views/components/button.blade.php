@@ -78,8 +78,8 @@
     if (!$hasCustomPadding) {
         $sizeClass = match ($size) {
             'sm'    => 'px-3 py-1.5',
-            'lg'    => 'px-6 py-3.5',
-            default => 'px-5 py-2.5',
+            'lg'    => 'px-6 h-14',
+            default => 'px-5 h-12',
         };
     }
 
@@ -140,6 +140,9 @@
 
 <{{ $tag }}
     @if($href)
+        @if(!$attributes->has('data-drawer'))
+            wire:navigate
+        @endif
         href="{{ $href }}"
         @if($loading && $disableOnLoading)
             aria-disabled="true"

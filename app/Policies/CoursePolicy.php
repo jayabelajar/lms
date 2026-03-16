@@ -27,7 +27,7 @@ class CoursePolicy
 
     public function create(User $user): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasRole('admin') || $user->hasRole('instructor');
     }
 
     public function update(User $user, Course $course): bool
@@ -45,6 +45,14 @@ class CoursePolicy
 
     public function delete(User $user, Course $course): bool
     {
-        return $user->hasRole('admin');
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        if ($user->hasRole('instructor')) {
+            return $course->instructor_id === $user->id;
+        }
+
+        return false;
     }
 }

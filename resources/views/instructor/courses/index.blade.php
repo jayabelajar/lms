@@ -1,11 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                {{ __('Mata Kuliah') }}
-            </h2>
-        </div>
-    </x-slot>
 
     @if (session('status'))
         <div class="p-3 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-2xl">
@@ -15,22 +8,39 @@
 
     <x-card>
         <x-slot name="header">
-            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Mata Kuliah</p>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-white">My courses</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang my courses.</p>
                 </div>
-                <span class="text-xs font-bold text-gray-400">{{ $courses->total() }} total</span>
             </div>
         </x-slot>
+
+        <form method="GET" action="{{ route('instructor.courses.index') }}" class="p-4 sm:p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-800/20">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-4 items-end">
+                <div class="md:col-span-4 lg:col-span-5 w-full">
+                    <x-input label="Search Title" name="q" type="text" icon="search" placeholder="Search by title..." value="{{ request('q') }}" />
+                </div>
+                <div class="md:col-span-5 lg:col-span-4 w-full">
+                    <x-select name="status" label="Filter Status" icon="toggle-left" placeholder="All Statuses" onchange="this.form.submit()">
+                        <option value="published" @selected(request('status') === 'published')>Published</option>
+                        <option value="draftt" @selected(request('status') === 'draftt')>Draft</option>
+                    </x-select>
+                </div>
+                <div class="md:col-span-3 lg:col-span-3 w-full flex items-center gap-2 sm:gap-3">
+                    <x-button type="submit" icon="filter" class="flex-1 justify-center">Filter</x-button>
+                    <x-button href="{{ route('instructor.courses.index') }}" variant="secondary" class="flex-1 justify-center">Reset</x-button>
+                </div>
+            </div>
+        </form>
 
         <div class="overflow-x-auto w-full">
             <table class="min-w-full text-sm">
                 <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                     <tr>
-                        <th class="px-4 py-3">Judul</th>
+                        <th class="px-4 py-3">Title</th>
                         <th class="px-4 py-3">Status</th>
-                        <th class="px-4 py-3">Aksis</th>
+                        <th class="px-4 py-3">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
@@ -45,18 +55,15 @@
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-                                    <x-button href="{{ route('instructor.courses.show', $course) }}" size="sm" variant="secondary" icon="eye">
-                                        Lihat
-                                    </x-button>
-                                    <x-button href="{{ route('instructor.courses.edit', $course) }}" size="sm" variant="secondary" icon="edit">
-                                        Ubah
+                                    <x-button href="{{ route('instructor.courses.show', $course) }}" data-drawer="true" size="sm" variant="secondary" icon="eye">
+                                        View
                                     </x-button>
                                 </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td class="px-4 py-6 text-center text-gray-500" colspan="3">Belum ada mata kuliah.</td>
+                            <td class="px-4 py-6 text-center text-gray-500" colspan="3">No courses.</td>
                         </tr>
                     @endforelse
                 </tbody>

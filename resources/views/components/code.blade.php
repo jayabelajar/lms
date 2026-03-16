@@ -7,13 +7,13 @@
         : (string) $slot;
 
     /**
-     * 1. Hapus newline kosong di awal & akhir
+     * 1. Delete newline kosong di awal & akhir
      */
     $code = preg_replace('/^\s*\n|\n\s*$/', '', $code);
 
     /**
      * 2. Normalisasi indent
-     *    Cari indent terkecil lalu hapus dari semua baris
+     *    Search indent terkecil lalu delete dari all baris
      */
     $lines = preg_split("/\r\n|\n|\r/", $code);
     $minIndent = null;

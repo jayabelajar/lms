@@ -15,7 +15,7 @@
    Bootstrap & Alpine
    ======================== */
 import './bootstrap'
-import Alpine from 'alpinejs'
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm'
 import collapse from '@alpinejs/collapse'
 
 window.Alpine = Alpine
@@ -76,9 +76,9 @@ const savedTheme = localStorage.getItem('theme') || 'light'
 applyTheme(savedTheme)
 
 /* ========================
-   Start Alpine
+   Start Livewire and Alpine
    ======================== */
-Alpine.start()
+Livewire.start()
 
 /* ========================
    Session Alert Handler

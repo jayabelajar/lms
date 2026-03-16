@@ -4,7 +4,7 @@
 @endphp
 
 <header
-    class="sticky top-0 z-[50] w-full border-b border-gray-100 bg-white/95 backdrop-blur transition-all duration-300 dark:border-gray-900 dark:bg-gray-950/90"
+    class="sticky top-0 z-[50] w-full border-b border-gray-100 bg-white transition-all duration-300 dark:border-gray-900 dark:bg-gray-950"
     x-data>
 
     <div class="flex items-center justify-between px-4 py-3 sm:px-6">
@@ -26,10 +26,6 @@
                 <i class="ti ti-school text-lg text-indigo-500"></i>
                 <span class="text-sm font-semibold text-gray-700 dark:text-gray-200">JLearn LMS</span>
             </div>
-            <div class="hidden md:flex items-center gap-3 px-4 h-10 w-64 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-400 border border-transparent">
-                <i class="ti ti-search text-lg"></i>
-                <span class="text-sm font-medium">Cari...</span>
-            </div>
         </div>
 
         <div class="flex items-center gap-2 sm:gap-3">
@@ -44,13 +40,14 @@
 
             <div class="relative" x-data="{ userOpen: false }">
                 <button @click="userOpen = !userOpen" class="flex items-center gap-3 rounded-2xl p-1 group">
-                    <div class="hidden md:flex flex-col items-end">
+                    <x-avatar :src="$user?->avatar ? Storage::url($user->avatar) : null" :name="($user->name ?? 'G')" size="sm" shape="xl" status="online" />
+                    <div class="hidden md:flex flex-col items-start text-left">
                         <p class="text-sm font-bold text-gray-900 dark:text-white leading-none mb-1 group-hover:text-indigo-600 transition-colors truncate">
                             {{ $user->name ?? 'Guest' }}
                         </p>
-                        <p class="text-xs font-bold text-gray-400 truncate">{{ $roleLabel }}</p>
+                        <p class="text-[10px] font-bold text-gray-400 truncate">{{ $roleLabel }}</p>
                     </div>
-                    <x-avatar :src="null" :name="($user->name ?? 'G')" size="sm" shape="xl" status="online" />
+                    <i class="ti ti-caret-down text-gray-400 text-sm ml-1 hidden md:block"></i>
                 </button>
 
                 <div x-show="userOpen" @click.outside="userOpen = false"
@@ -61,7 +58,7 @@
                     x-cloak>
 
                     <div class="flex items-center gap-3 px-4 py-4 border-b border-gray-50 dark:border-gray-900 mb-2">
-                        <x-avatar :src="null" :name="($user->name ?? 'G')" size="md" shape="xl" />
+                        <x-avatar :src="$user?->avatar ? Storage::url($user->avatar) : null" :name="($user->name ?? 'G')" size="md" shape="xl" />
                         <div class="flex-1 overflow-hidden">
                             <p class="truncate text-sm font-bold text-gray-900 dark:text-white leading-none mb-1">
                                 {{ $user->name ?? 'Guest' }}
@@ -73,15 +70,15 @@
                     </div>
 
                     <div class="space-y-1">
-                        <a href="{{ route('profile.edit') }}"
+                        <a wire:navigate href="{{ route('profile.edit') }}"
                             class="flex items-center gap-3 rounded-2xl px-4 py-2.5 text-sm font-semibold text-gray-600 transition-colors hover:bg-indigo-50 hover:text-indigo-600 dark:text-gray-400 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-400">
-                            <i class="ti ti-user-circle text-lg text-indigo-500"></i> Profil
+                            <i class="ti ti-user-circle text-lg text-indigo-500"></i> Profile
                         </a>
                         <hr class="mx-4 my-2 border-gray-50 dark:border-gray-900">
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button class="flex w-full items-center gap-3 rounded-2xl px-4 py-2.5 text-sm font-bold text-rose-600 transition-colors hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-500/10">
-                                <i class="ti ti-logout-2 text-lg"></i> Keluar
+                            <button class="flex w-full items-center gap-3 rounded-2xl px-4 py-2.5 text-sm font-bold text-rose-600 transition-colors hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-500/10" type="submit">
+                                <i class="ti ti-logout-2 text-lg"></i> Logout
                             </button>
                         </form>
                     </div>

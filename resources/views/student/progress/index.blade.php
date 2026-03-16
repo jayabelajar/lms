@@ -1,20 +1,17 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                Progres
-            </h2>
-            <x-button href="{{ route('student.my-courses') }}" variant="secondary" icon="book" class="w-full sm:w-auto">
-                Mata Kuliah
-            </x-button>
-        </div>
-    </x-slot>
 
     <x-card>
         <x-slot name="header">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Completion</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Mata Kuliah progress</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Courses progress</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang courses progress.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <x-button href="{{ route('student.my-courses') }}" variant="secondary" icon="book" class="w-full sm:w-auto">
+                        Courses
+                    </x-button>
+                </div>
             </div>
         </x-slot>
 
@@ -22,7 +19,7 @@
             <table class="min-w-full text-sm">
                 <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                     <tr>
-                        <th class="px-4 py-3">Mata Kuliah</th>
+                        <th class="px-4 py-3">Courses</th>
                         <th class="px-4 py-3">Progres</th>
                         <th class="px-4 py-3">Status</th>
                     </tr>
@@ -40,7 +37,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td class="px-4 py-6 text-center text-gray-500" colspan="3">Belum ada mata kuliah.</td>
+                            <td class="px-4 py-6 text-center text-gray-500" colspan="3">No courses.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -51,18 +48,23 @@
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
         <x-card>
             <x-slot name="header">
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Tugas Nilai</p>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Riwayat Nilai</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Riwayat Grades</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang riwayat grades.</p>
                 </div>
-            </x-slot>
+                <div class="flex items-center gap-3">
+                    
+                </div>
+            </div>
+        </x-slot>
 
             <div class="overflow-x-auto w-full">
                 <table class="min-w-full text-sm">
                     <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                         <tr>
-                            <th class="px-4 py-3">Tugas</th>
-                            <th class="px-4 py-3">Mata Kuliah</th>
+                            <th class="px-4 py-3">Assignments</th>
+                            <th class="px-4 py-3">Courses</th>
                             <th class="px-4 py-3">Skor</th>
                         </tr>
                     </thead>
@@ -75,7 +77,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="px-4 py-6 text-center text-gray-500" colspan="3">Belum ada nilai.</td>
+                                <td class="px-4 py-6 text-center text-gray-500" colspan="3">No grades.</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -85,18 +87,23 @@
 
         <x-card>
             <x-slot name="header">
-                <div>
-                    <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Kuis Skors</p>
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Kuis history</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Quizzes history</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang quizzes history.</p>
                 </div>
-            </x-slot>
+                <div class="flex items-center gap-3">
+                    
+                </div>
+            </div>
+        </x-slot>
 
             <div class="overflow-x-auto w-full">
                 <table class="min-w-full text-sm">
                     <thead class="text-left text-[11px] uppercase tracking-widest text-gray-400">
                         <tr>
-                            <th class="px-4 py-3">Kuis</th>
-                            <th class="px-4 py-3">Mata Kuliah</th>
+                            <th class="px-4 py-3">Quizzes</th>
+                            <th class="px-4 py-3">Courses</th>
                             <th class="px-4 py-3">Skor</th>
                         </tr>
                     </thead>
@@ -109,7 +116,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td class="px-4 py-6 text-center text-gray-500" colspan="3">Belum ada percobaan kuis.</td>
+                                <td class="px-4 py-6 text-center text-gray-500" colspan="3">No percobaan quizzes.</td>
                             </tr>
                         @endforelse
                     </tbody>

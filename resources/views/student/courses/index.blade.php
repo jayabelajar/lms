@@ -1,17 +1,15 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-100 leading-tight">
-                Mata Kuliah
-            </h2>
-        </div>
-    </x-slot>
 
     <x-card>
         <x-slot name="header">
-            <div>
-                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Mata Kuliah</p>
-                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Mata Kuliah Terdaftar</h3>
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div class="flex flex-col gap-1">
+                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">Courses Enrolled</h3>
+                    <p class="text-[13px] font-medium text-gray-500 dark:text-gray-400">Kelola dan lihat informasi detail tentang courses enrolled.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    
+                </div>
             </div>
         </x-slot>
 
@@ -31,14 +29,14 @@
                     $hash = crc32((string) $course->id);
                     $gradient = $gradients[$hash % count($gradients)];
                     $statusLabel = $course->pivot->status ?? 'approved';
-                    $statusText = $statusLabel === 'approved' ? 'Terdaftar' : ucfirst($statusLabel);
+                    $statusText = $statusLabel === 'approved' ? 'Enrolled' : ucfirst($statusLabel);
                 @endphp
                 <div class="rounded-3xl border border-gray-100 dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-900 min-w-0">
                     <div class="w-full aspect-[16/9] bg-gradient-to-tr {{ $gradient }} relative">
                         <div class="absolute inset-0 bg-black/10"></div>
                         <div class="absolute inset-x-0 bottom-0 p-4">
-                            <div class="bg-black/35 backdrop-blur-sm rounded-2xl px-3 py-2">
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-white/80">Mata Kuliah</span>
+                            <div class="bg-black/80 rounded-2xl px-3 py-2">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-white/80">Courses</span>
                                 <h4 class="text-base sm:text-lg font-bold text-white leading-tight line-clamp-2">{{ $course->title }}</h4>
                             </div>
                         </div>
@@ -46,7 +44,7 @@
 
                     <div class="p-4 sm:p-5 space-y-3">
                         <div class="flex items-center justify-between">
-                            <p class="text-sm text-gray-500">Dosen</p>
+                            <p class="text-sm text-gray-500">Instructors</p>
                             <p class="text-sm font-semibold text-gray-900 dark:text-white text-right line-clamp-1">{{ $course->instructor?->name ?? '-' }}</p>
                         </div>
                         <div class="flex items-center justify-between">
@@ -59,7 +57,7 @@
                     </div>
                 </div>
             @empty
-                <div class="col-span-full text-center text-gray-500 py-8">Belum ada mata kuliah.</div>
+                <div class="col-span-full text-center text-gray-500 py-8">No courses.</div>
             @endforelse
         </div>
     </x-card>
