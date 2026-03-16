@@ -13,8 +13,8 @@ function banner() {
 clear
 echo -e "${CYAN}"
 echo "====================================="
-echo "   DEV HELPER CLI"
-echo "   GitHub Automation Tool"
+echo "   DEV GIT HELPER CLI"
+echo "   GitHub Automation Tool by @jayabelajar"
 echo "====================================="
 echo -e "${NC}"
 }
